@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bLikePresed">#9045ed83</color>
+    <color name="bLikeNormal">#93edf2ef</color>
+    <color name="bAllPresed">#904596ed</color>
+    <color name="bAllNormal">#93edf2ef</color>
 </resources>
