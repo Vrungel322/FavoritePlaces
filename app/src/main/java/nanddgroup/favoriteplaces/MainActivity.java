@@ -1,6 +1,5 @@
 package nanddgroup.favoriteplaces;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -11,11 +10,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-    @Bind(R.id.bLTPlace)Button bLTPlace;
-    @Bind(R.id.bAMPlaces)Button bAMPlaces;
-    static SQLiteDatabase mDB;
+public class MainActivity extends AppCompatActivity {
+    @Bind(R.id.bLTPlace)
+    Button bLTPlace;
+    @Bind(R.id.bAMPlaces)
+    Button bAMPlaces;
+    private DBHelper dbHelper;
+    private NavigationHelper navHelper;
     private GoogleMap gMap;
 
     @Override
@@ -23,48 +26,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mDB = MyDBInstance.getInstance(getApplicationContext()).getWritableDatabase();
-        createTablePlaces();
-        for (int i = 0; i < 10; i++){
-            insertToTable("test_" + i, i, i);
-        }
-//        dropTable("places");
-//        MyDBInstance.selectTest(mDB);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        //DB stuff
+        dbHelper = new DBHelper(getApplicationContext());
+        dbHelper.init();
+        dbHelper.createTablePlaces();
+        // Map stuff
+        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                gMap = googleMap;
+            }
+        });
+        navHelper = new NavigationHelper(getApplicationContext(), gMap);
+        navHelper.init();
+        navHelper.startListenCoord();
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        gMap = googleMap;
-    }
 
-    private void createTablePlaces() {
-        String createTable = "CREATE TABLE IF NOT EXISTS places "        +
-                "(" +
-                "_id        INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                "_name      TEXT NOT NULL,"                              +
-                "_lat       DOUBLE NOT NULL,"                            +
-                "_lng       DOUBLE NOT NULL"                             +
-                ");";
-        mDB.execSQL(createTable);
-    }
 
-    private void insertToTable(String name, double lat, double lng) {
-        String insertPersonStmt1 = "INSERT INTO 'places'('_name', '_lat', '_lng') VALUES " +
-                "("
-                +"'"+name+"'"
-                +","
-                +lat
-                +","
-                +lng
-                +")";
-        mDB.execSQL(insertPersonStmt1);
-    }
+    @OnClick(R.id.bLTPlace)
+    public void bLTPlaceClicked(){
+        navHelper.navigateToCurrentPlace(gMap);
+            dbHelper.insertToTable("test_", navHelper.getCur_lat(), navHelper.getCur_lng());
 
-    private void dropTable(String table){
-        String dropTable = "DROP TABLE " + " " + table;
-        mDB.execSQL(dropTable);
     }
 }
