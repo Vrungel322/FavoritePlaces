@@ -63,7 +63,8 @@ public class DBHelper {
     }
 
     public void dropTable(String table) {
-        String dropTable = "DROP TABLE " + " " + table;
+        String dropTable = "DROP TABLE IF EXISTS " + " " + table;
         mDB.execSQL(dropTable);
+        createTablePlaces();
     }
 }

@@ -41,6 +41,10 @@
                 android:text="Like this place"
                 android:textColor="#3485e9" />
 
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
             <Button
                 android:id="@+id/bAMPlaces"
                 android:layout_width="0dp"
@@ -48,8 +52,17 @@
                 android:layout_weight="1"
                 android:background="@drawable/bamp"
                 android:text="All my places"
-                android:textColor="#b934e9"/>
+                android:textColor="#b934e9" />
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <Button
+        android:id="@+id/bDT"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="#86ffffff"
+        android:text="D.T." />
 </RelativeLayout>

@@ -21,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
     Button bLTPlace;
     @Bind(R.id.bAMPlaces)
     Button bAMPlaces;
+    @Bind(R.id.bDT)
+    Button bDT;
     private PlacesDialogFragment placesDialogFragment;
+    private PlaceNameFragment placeNameFragment;
     private DBHelper dbHelper;
     private NavigationHelper navHelper;
     private GoogleMap gMap;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         navHelper = new NavigationHelper(getApplicationContext(), gMap);
         navHelper.init();
         navHelper.startListenCoord();
+        //Event Bus stuff
         bus = new Bus();
         bus.register(this);
     }
@@ -55,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.bLTPlace)
     public void bLTPlaceClicked() {
-        navHelper.navigateToCurrentPlace(gMap);
-        dbHelper.insertToTable("test_", navHelper.getCur_lat(), navHelper.getCur_lng());
+        placeNameFragment = new  PlaceNameFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        placeNameFragment.show(ft,"ft");
     }
 
     @OnClick(R.id.bAMPlaces)
@@ -66,9 +71,23 @@ public class MainActivity extends AppCompatActivity {
         placesDialogFragment.show(ft,"ft");
     }
 
+    @OnClick(R.id.bDT)
+    public void bDTClicked(){
+        dbHelper.dropTable("places");
+        navHelper.removeAllMarcers(gMap);
+    }
+
     @Subscribe
-    public void handlePlaceinDialogClicked(Place place){
+    public void handlePlaceInDialogClicked(Place place){
         placesDialogFragment.dismiss();
         navHelper.navigateToPlace(gMap, new LatLng(place.getdLat(), place.getdLng()));
+    }
+
+    @Subscribe
+    public void handlePlaceNameInputted(String name){
+        placeNameFragment.dismiss();
+        navHelper.navigateToCurrentPlace(gMap);
+        dbHelper.insertToTable(name, navHelper.getCur_lat(), navHelper.getCur_lng());
+
     }
 }

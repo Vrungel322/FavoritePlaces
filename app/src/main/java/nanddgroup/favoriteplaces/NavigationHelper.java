@@ -79,6 +79,10 @@ public class NavigationHelper {
         gMap.addMarker(new MarkerOptions().position(latLng).title("Liked this place"));
     }
 
+    public void removeAllMarcers(GoogleMap gMap){
+        gMap.clear();
+    }
+
     public double getCur_lat() {
         return cur_lat;
     }
