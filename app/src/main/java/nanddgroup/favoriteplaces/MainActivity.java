@@ -2,7 +2,6 @@ package nanddgroup.favoriteplaces;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Button bLTPlace;
     @Bind(R.id.bAMPlaces)
     Button bAMPlaces;
-    static SQLiteDatabase mDB;
+    DBHelper dbHelper;
     private GoogleMap gMap;
     private LocationManager locationManager;
     private double cur_lat;
@@ -39,8 +38,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mDB = MyDBInstance.getInstance(getApplicationContext()).getWritableDatabase();
-        createTablePlaces();
+        dbHelper = new DBHelper(getApplicationContext());
+        dbHelper.init();
+        dbHelper.createTablePlaces();
 //        dropTable("places");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -92,31 +92,4 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void createTablePlaces() {
-        String createTable = "CREATE TABLE IF NOT EXISTS places "        +
-                "(" +
-                "_id        INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                "_name      TEXT NOT NULL,"                              +
-                "_lat       DOUBLE NOT NULL,"                            +
-                "_lng       DOUBLE NOT NULL"                             +
-                ");";
-        mDB.execSQL(createTable);
-    }
-
-    private void insertToTable(String name, double lat, double lng) {
-        String insertPersonStmt1 = "INSERT INTO 'places'('_name', '_lat', '_lng') VALUES " +
-                "("
-                +"'"+name+"'"
-                +","
-                +lat
-                +","
-                +lng
-                +")";
-        mDB.execSQL(insertPersonStmt1);
-    }
-
-    private void dropTable(String table){
-        String dropTable = "DROP TABLE " + " " + table;
-        mDB.execSQL(dropTable);
-    }
 }
