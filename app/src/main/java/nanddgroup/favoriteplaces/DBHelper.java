@@ -41,6 +41,8 @@ public class DBHelper {
                 +lng
                 +")";
         mDB.execSQL(insertPersonStmt1);
+
+//        MyDBInstance.getTableAsString(mDB, "places");
     }
 
     public void dropTable(String table){

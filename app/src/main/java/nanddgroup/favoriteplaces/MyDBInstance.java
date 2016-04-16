@@ -40,39 +40,23 @@ public class MyDBInstance extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){}
 
-    public static void selectTest(SQLiteDatabase mDB) {
+    public static String getTableAsString(SQLiteDatabase db, String tableName) {
+        Log.d("DB_LOG", "getTableAsString called");
+        String tableString = String.format("Table %s:\n", tableName);
+        Cursor c  = db.rawQuery("SELECT * FROM " + tableName, null);
+        if (c.moveToFirst() ){
+            String[] columnNames = c.getColumnNames();
+            do {
+                for (String name: columnNames) {
+                    tableString += String.format("%s: %s\n", name,
+                            c.getString(c.getColumnIndex(name)));
+                }
+                tableString += "\n";
 
-        String selectStmt = "SELECT _name  FROM places;";
-
-        Cursor c = mDB.rawQuery(selectStmt, null);
-
-        int columns = c.getColumnCount();
-        int count = c.getCount();
-        String[] columnNames = c.getColumnNames();
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("Записей : " + count + ":\r\n");
-        sb.append("Колонок : " + columns + ":\r\n");
-        sb.append("Колонки :");
-
-        for (String colName : columnNames)
-            sb.append(" | " + colName);
-        sb.append(" |\r\n");
-
-        if (c.moveToFirst()) {
-            while (!c.isAfterLast()) {
-
-                for (int i = 0; i < columns; i++)
-                    sb.append(c.getString(i) + "  :  ");
-
-                sb.append("\r\n");
-
-                c.moveToNext();
-            }
+            } while (c.moveToNext());
         }
+        Log.e("DB_LOG", tableString);
 
-        Log.e("DB_LOG", String.valueOf(count));
-
-        c.close();
+        return tableString;
     }
 }
