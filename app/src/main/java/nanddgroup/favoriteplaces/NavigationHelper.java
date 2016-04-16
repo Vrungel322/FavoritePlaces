@@ -40,7 +40,7 @@ public class NavigationHelper {
             public void onLocationChanged(Location location) {
                 cur_lat = location.getLatitude();
                 cur_lng = location.getLongitude();
-                Log.e("coord", "1 : " + cur_lat + "2 : " + cur_lng);
+                Log.e("coord", "1 : " + cur_lat + " 2 : " + cur_lng);
             }
 
             @Override
@@ -71,6 +71,12 @@ public class NavigationHelper {
         gMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(curPos, 18,
                 0, 0)));
         gMap.addMarker(new MarkerOptions().position(curPos).title("Liked this place"));
+    }
+
+    public void navigateToPlace(GoogleMap gMap, LatLng latLng){
+        gMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 18,
+                0, 0)));
+        gMap.addMarker(new MarkerOptions().position(latLng).title("Liked this place"));
     }
 
     public double getCur_lat() {
