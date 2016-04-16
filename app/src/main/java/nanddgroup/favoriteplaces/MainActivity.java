@@ -80,13 +80,14 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe
     public void handlePlaceInDialogClicked(Place place){
         placesDialogFragment.dismiss();
-        navHelper.navigateToPlace(gMap, new LatLng(place.getdLat(), place.getdLng()));
+        navHelper.navigateToPlace(gMap,
+                new LatLng(place.getdLat(), place.getdLng()), place.getsPlaceName());
     }
 
     @Subscribe
     public void handlePlaceNameInputted(String name){
         placeNameFragment.dismiss();
-        navHelper.navigateToCurrentPlace(gMap);
+        navHelper.navigateToCurrentPlace(gMap, name);
         dbHelper.insertToTable(name, navHelper.getCur_lat(), navHelper.getCur_lng());
 
     }

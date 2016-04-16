@@ -66,17 +66,17 @@ public class NavigationHelper {
                 100, 0.1f, locationListener);
     }
 
-    public void navigateToCurrentPlace(GoogleMap gMap){
+    public void navigateToCurrentPlace(GoogleMap gMap, String name){
         LatLng curPos = new LatLng(cur_lat, cur_lng);
         gMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(curPos, 18,
                 0, 0)));
-        gMap.addMarker(new MarkerOptions().position(curPos).title("Liked this place"));
+        gMap.addMarker(new MarkerOptions().position(curPos).title(name));
     }
 
-    public void navigateToPlace(GoogleMap gMap, LatLng latLng){
+    public void navigateToPlace(GoogleMap gMap, LatLng latLng, String name){
         gMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 18,
                 0, 0)));
-        gMap.addMarker(new MarkerOptions().position(latLng).title("Liked this place"));
+        gMap.addMarker(new MarkerOptions().position(latLng).title(name));
     }
 
     public void removeAllMarcers(GoogleMap gMap){
