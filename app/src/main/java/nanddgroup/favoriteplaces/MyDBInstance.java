@@ -9,28 +9,28 @@ import android.util.Log;
 /**
  * Created by Nikita on 15.04.2016.
  */
-public class MyDBHelper extends SQLiteOpenHelper {
+public class MyDBInstance extends SQLiteOpenHelper {
     public static final String DB_NAME = "places.db";
 
-    private static MyDBHelper myDBHelper;
+    private static MyDBInstance myDBInstance;
 
-    public static MyDBHelper getInstance(Context context, String dbName){
-        if(myDBHelper == null)
-            myDBHelper = new MyDBHelper(context, dbName);
+    public static MyDBInstance getInstance(Context context, String dbName){
+        if(myDBInstance == null)
+            myDBInstance = new MyDBInstance(context, dbName);
 
-        return myDBHelper;
+        return myDBInstance;
     }
 
-    public static MyDBHelper getInstance(Context context){
+    public static MyDBInstance getInstance(Context context){
 
         return getInstance(context, DB_NAME);
     }
 
-    private MyDBHelper(Context context) {
+    private MyDBInstance(Context context) {
         super(context, DB_NAME, null, 1);
     }
 
-    private MyDBHelper(Context context, String dbName) {
+    private MyDBInstance(Context context, String dbName) {
         super(context, dbName, null, 1);
     }
 
