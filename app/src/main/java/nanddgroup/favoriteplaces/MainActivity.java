@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Button bLTPlace;
     @Bind(R.id.bAMPlaces)
     Button bAMPlaces;
-    DBHelper dbHelper;
+    private DBHelper dbHelper;
     private GoogleMap gMap;
     private LocationManager locationManager;
     private double cur_lat;
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         dbHelper = new DBHelper(getApplicationContext());
         dbHelper.init();
         dbHelper.createTablePlaces();
-//        dropTable("places");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
@@ -86,10 +85,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         gMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(curPos, 18,
                 gMap.getCameraPosition().tilt, gMap.getCameraPosition().bearing)));
         gMap.addMarker(new MarkerOptions().position(curPos).title("Liked this place"));
-//            insertToTable("test_", cur_lat, cur_lng);
-
-//        MyDBInstance.selectTest(mDB);
+            dbHelper.insertToTable("test_", cur_lat, cur_lng);
 
     }
-
 }
