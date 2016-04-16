@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.bDT)
     public void bDTClicked(){
-        dbHelper.dropTable("places");
+        dbHelper.dropTableAndCreate("places");
         navHelper.removeAllMarcers(gMap);
     }
 
