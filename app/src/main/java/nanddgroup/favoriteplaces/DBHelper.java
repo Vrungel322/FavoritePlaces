@@ -1,7 +1,10 @@
 package nanddgroup.favoriteplaces;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 /**
  * Created by Nikita on 16.04.2016.
@@ -15,18 +18,18 @@ public class DBHelper {
         this.context = context;
     }
 
-    public void init(){
+    public void init() {
 
         mDB = MyDBInstance.getInstance(context).getWritableDatabase();
     }
 
     public void createTablePlaces() {
-        String createTable = "CREATE TABLE IF NOT EXISTS places "        +
+        String createTable = "CREATE TABLE IF NOT EXISTS places " +
                 "(" +
                 "_id        INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                "_name      TEXT NOT NULL,"                              +
-                "_lat       DOUBLE NOT NULL,"                            +
-                "_lng       DOUBLE NOT NULL"                             +
+                "_name      TEXT NOT NULL," +
+                "_lat       DOUBLE NOT NULL," +
+                "_lng       DOUBLE NOT NULL" +
                 ");";
         mDB.execSQL(createTable);
     }
@@ -34,18 +37,32 @@ public class DBHelper {
     public void insertToTable(String name, double lat, double lng) {
         String insertPersonStmt1 = "INSERT INTO 'places'('_name', '_lat', '_lng') VALUES " +
                 "("
-                +"'"+name+"'"
-                +","
-                +lat
-                +","
-                +lng
-                +")";
+                + "'" + name + "'"
+                + ","
+                + lat
+                + ","
+                + lng
+                + ")";
         mDB.execSQL(insertPersonStmt1);
 
 //        MyDBInstance.getTableAsString(mDB, "places");
     }
 
-    public void dropTable(String table){
+    public static ArrayList<Place> getAllNotes(String tableName) {
+        ArrayList<Place> list = new ArrayList<Place>();
+        Cursor c = mDB.rawQuery("SELECT * FROM places", null);
+        if (c.moveToFirst()) {
+            while ( !c.isAfterLast() ) {
+                    list.add(new Place(c.getString(c.getColumnIndex("_name")),
+                            c.getDouble(c.getColumnIndex("_lat")),
+                            c.getDouble(c.getColumnIndex("_lng"))));
+                c.moveToNext();
+            }
+        }
+        return list;
+    }
+
+    public void dropTable(String table) {
         String dropTable = "DROP TABLE " + " " + table;
         mDB.execSQL(dropTable);
     }
