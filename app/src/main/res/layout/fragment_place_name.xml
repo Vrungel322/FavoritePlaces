@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="nanddgroup.favoriteplaces.PlaceNameFragment">
+    tools:context="nanddgroup.favoriteplaces.presentation.Fragments.PlaceNameFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

@@ -1,10 +1,14 @@
-package nanddgroup.favoriteplaces;
+package nanddgroup.favoriteplaces.data;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import nanddgroup.favoriteplaces.entity.Place;
 
 /**
  * Created by Nikita on 16.04.2016.
@@ -14,13 +18,10 @@ public class DBHelper {
     static SQLiteDatabase mDB;
     Context context;
 
-    public DBHelper(Context context) {
+    @Inject
+    public DBHelper(Context context, SQLiteDatabase sqLiteDatabase) {
         this.context = context;
-    }
-
-    public void init() {
-
-        mDB = MyDBInstance.getInstance(context).getWritableDatabase();
+        this.mDB = sqLiteDatabase;
     }
 
     public void createTablePlaces() {

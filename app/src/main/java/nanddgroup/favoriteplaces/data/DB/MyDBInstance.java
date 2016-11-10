@@ -1,4 +1,4 @@
-package nanddgroup.favoriteplaces;
+package nanddgroup.favoriteplaces.data.DB;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,26 +12,8 @@ import android.util.Log;
 public class MyDBInstance extends SQLiteOpenHelper {
     public static final String DB_NAME = "places.db";
 
-    private static MyDBInstance myDBInstance;
-
-    public static MyDBInstance getInstance(Context context, String dbName){
-        if(myDBInstance == null)
-            myDBInstance = new MyDBInstance(context, dbName);
-
-        return myDBInstance;
-    }
-
-    public static MyDBInstance getInstance(Context context){
-
-        return getInstance(context, DB_NAME);
-    }
-
-    private MyDBInstance(Context context) {
+    public MyDBInstance(Context context) {
         super(context, DB_NAME, null, 1);
-    }
-
-    private MyDBInstance(Context context, String dbName) {
-        super(context, dbName, null, 1);
     }
 
     @Override

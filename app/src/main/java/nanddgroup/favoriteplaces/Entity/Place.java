@@ -1,4 +1,4 @@
-package nanddgroup.favoriteplaces;
+package nanddgroup.favoriteplaces.entity;
 
 /**
  * Created by Nikita on 16.04.2016.

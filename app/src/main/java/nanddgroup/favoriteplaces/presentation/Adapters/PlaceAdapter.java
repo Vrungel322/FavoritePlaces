@@ -1,4 +1,4 @@
-package nanddgroup.favoriteplaces;
+package nanddgroup.favoriteplaces.presentation.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import nanddgroup.favoriteplaces.R;
+import nanddgroup.favoriteplaces.entity.Place;
+import nanddgroup.favoriteplaces.presentation.Activity.MainActivity;
 
 /**
  * Created by Nikita on 16.04.2016.
@@ -35,19 +39,19 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         }
 
         TextView tvPlace = (TextView) rootView.findViewById(R.id.tvPlace);
-        tvPlace.setText(places.get(position).sPlaceName);
+        tvPlace.setText(places.get(position).getsPlaceName());
         TextView tvLat = (TextView) rootView.findViewById(R.id.tvLat);
-        tvLat.setText(String.valueOf(places.get(position).dLat));
+        tvLat.setText(String.valueOf(places.get(position).getdLat()));
         TextView tvLng = (TextView) rootView.findViewById(R.id.tvLng);
-        tvLng.setText(String.valueOf(places.get(position).dLng));
+        tvLng.setText(String.valueOf(places.get(position).getdLng()));
 
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TaG", String.valueOf(places.get(position).dLat));
-                MainActivity.bus.post(new Place(places.get(position).sPlaceName,
-                        places.get(position).dLat,
-                        places.get(position).dLng));
+                Log.d("TaG", String.valueOf(places.get(position).getdLat()));
+                MainActivity.bus.post(new Place(places.get(position).getsPlaceName(),
+                        places.get(position).getdLat(),
+                        places.get(position).getdLng()));
 
             }
         });

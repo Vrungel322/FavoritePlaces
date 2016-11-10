@@ -1,4 +1,4 @@
-package nanddgroup.favoriteplaces;
+package nanddgroup.favoriteplaces.presentation.Fragments;
 
 
 import android.app.DialogFragment;
@@ -13,6 +13,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nanddgroup.favoriteplaces.R;
+import nanddgroup.favoriteplaces.data.DBHelper;
+import nanddgroup.favoriteplaces.entity.Place;
+import nanddgroup.favoriteplaces.presentation.Adapters.PlaceAdapter;
 
 
 /**

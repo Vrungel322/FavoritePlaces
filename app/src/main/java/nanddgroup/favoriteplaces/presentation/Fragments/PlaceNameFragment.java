@@ -1,4 +1,4 @@
-package nanddgroup.favoriteplaces;
+package nanddgroup.favoriteplaces.presentation.Fragments;
 
 
 import android.app.DialogFragment;
@@ -13,15 +13,20 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import nanddgroup.favoriteplaces.R;
+import nanddgroup.favoriteplaces.presentation.Activity.MainActivity;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PlaceNameFragment extends DialogFragment {
-    @Bind(R.id.etPlaceName) EditText etPlaceName;
-    @Bind(R.id.bOk) Button bOk;
-    @Bind(R.id.bClose) Button bClose;
+    @Bind(R.id.etPlaceName)
+    EditText etPlaceName;
+    @Bind(R.id.bOk)
+    Button bOk;
+    @Bind(R.id.bClose)
+    Button bClose;
     private String sPlaceName;
 
 
@@ -40,13 +45,13 @@ public class PlaceNameFragment extends DialogFragment {
     }
 
     @OnClick(R.id.bOk)
-    public void bOkClicked(){
+    public void bOkClicked() {
         sPlaceName = etPlaceName.getText().toString();
         MainActivity.bus.post(sPlaceName);
     }
 
     @OnClick(R.id.bClose)
-    public void bCloseClicked(){
+    public void bCloseClicked() {
         getDialog().dismiss();
     }
 }
