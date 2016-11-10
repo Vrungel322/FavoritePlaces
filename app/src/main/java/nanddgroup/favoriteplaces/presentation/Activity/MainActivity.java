@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     Button bAMPlaces;
     @Bind(R.id.bDT)
     Button bDT;
+    @Bind(R.id.etToFindPlace)
+    EditText etToFindPlace;
+    @Bind(R.id.bFindPlace)
+    Button bFindPlace;
     @Inject
     DBHelper dbHelper;
 
@@ -73,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
             public void onMapReady(GoogleMap googleMap) {
                 gMap = googleMap;
                 navHelper.addMyCurrentLocationMarker(gMap);
-                navHelper.navigateToPlace(gMap,
-                        navHelper.getLocationFromAddress(getApplicationContext(),
-                                "Kiev, Akademika Yangelya, 20"),
-                        "Akademika Yangelya, 20");
                 setMapClickListener();
             }
         });
@@ -140,6 +142,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @OnClick(R.id.bFindPlace)
+    public void bFindPlaceClicked(){
+        String sPlace = etToFindPlace.getText().toString();
+        if (!sPlace.equals("")) {
+            navHelper.removeAllMarcers(gMap);
+            navHelper.navigateToPlace(gMap,
+                    navHelper.getLocationFromAddress(getApplicationContext(),
+                            sPlace),sPlace);
+        } else {
+            Toast.makeText(getApplicationContext(), "Empty Find field", Toast.LENGTH_LONG).show();
+        }
+    }
 
     @OnClick(R.id.bLTPlace)
     public void bLTPlaceClicked() {

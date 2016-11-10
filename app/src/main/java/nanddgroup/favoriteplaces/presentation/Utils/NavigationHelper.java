@@ -139,6 +139,7 @@ public class NavigationHelper implements INavigationHelper {
 
     }
 
+    @Override
     public String getDirectionsUrl(LatLng origin, LatLng dest) {
 
 
@@ -167,6 +168,7 @@ public class NavigationHelper implements INavigationHelper {
     /**
      * A method to download json data from url
      */
+    @Override
     public String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;

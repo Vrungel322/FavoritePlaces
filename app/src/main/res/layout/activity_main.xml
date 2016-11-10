@@ -9,23 +9,42 @@
     android:paddingTop="8dp"
     tools:context="nanddgroup.favoriteplaces.presentation.Activity.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/llToFind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5">
+
+        <EditText
+            android:id="@+id/etToFindPlace"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="48dp"
+            android:ems="20" />
+        <Button
+            android:id="@+id/bFindPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find"/>
+    </LinearLayout>
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_below="@+id/llToFind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        tools:context="com.nanddgroup.favoriteplaces.MainActivity"></fragment>
-
+        tools:context="com.nanddgroup.favoriteplaces.MainActivity"/>
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/coordinatorLayout">
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,8 +81,8 @@
         android:id="@+id/bDT"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="#86ffffff"
-        android:text="D.T."
         android:layout_above="@+id/coordinatorLayout"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:background="#86ffffff"
+        android:text="D.T." />
 </RelativeLayout>

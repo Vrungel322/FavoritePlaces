@@ -22,4 +22,8 @@ public interface INavigationHelper {
     void addMyCurrentLocationMarker(GoogleMap gMap);
 
     LatLng getLocationFromAddress(Context context, String strAddress);
+
+    String getDirectionsUrl(LatLng origin, LatLng dest);
+
+    String downloadUrl(String strUrl);
 }
