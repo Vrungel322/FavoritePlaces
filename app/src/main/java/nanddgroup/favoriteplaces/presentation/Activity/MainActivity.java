@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         });
         navHelper = new NavigationHelper(getApplicationContext(), gMap);
         navHelper.init();
-        navHelper.startListenCoord();
         //Event Bus stuff
         bus = new Bus();
         bus.register(this);

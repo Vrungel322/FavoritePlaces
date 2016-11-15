@@ -5,6 +5,8 @@ import android.content.Context;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
+
 /**
  * Created by Nikita on 10.11.2016.
  */
@@ -25,5 +27,5 @@ public interface INavigationHelper {
 
     String getDirectionsUrl(LatLng origin, LatLng dest);
 
-    String downloadUrl(String strUrl);
+    String downloadUrl(String strUrl) throws IOException;
 }
